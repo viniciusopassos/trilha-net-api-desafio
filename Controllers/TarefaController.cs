@@ -56,6 +56,9 @@ namespace TrilhaApiDesafio.Controllers
         public IActionResult ObterPorData(DateTime data)
         {
             var tarefa = _context.Tarefas.Where(x => x.Data.Date == data.Date);
+
+            if (tarefa is null) return NoContent();
+
             return Ok(tarefa);
         }
 

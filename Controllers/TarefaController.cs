@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using TrilhaApiDesafio.Context;
 using TrilhaApiDesafio.Models;
 
@@ -32,7 +33,11 @@ namespace TrilhaApiDesafio.Controllers
         public IActionResult ObterTodos()
         {
             // TODO: Buscar todas as tarefas no banco utilizando o EF
-            return Ok();
+            var tarefas = _context.Tarefas.ToList();
+
+            if (tarefas.IsNullOrEmpty()) return NotFound("Lista de tarefas vazia!");
+
+            return Ok(tarefas);
         }
 
         [HttpGet("ObterPorTitulo")]
